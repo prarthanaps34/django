@@ -1,10 +1,9 @@
 from django.shortcuts import render
-
+from .forms import LoginForm
 def greeting(request):
-    my_objects = [
-        {'name': 'John', 'age': 25, 'city': 'New York'},
-        {'name': 'Jane', 'age': 30, 'city': 'San Francisco'},
-        {'name': 'Bob', 'age': 20, 'city': 'Chicago'}
-    ]
-    context = {'my_objects': my_objects}
-    return render(request, 'index.html', context)
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        return render(request,'form-data.html',{
+            'email': form['email'].value
+        })
+    return render(request,'index.html')
